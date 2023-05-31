@@ -19,11 +19,11 @@ class RequestsHandler(logging.Handler):
     def emit(self, record):
         msg = self.format(record)
         try:
-        return post(
-            'https://shedtemp.pythonanywhere.com/temp',
-            json={"message": msg},
-            headers={"Content-type": "application/json"}
-        ).content
+            return post(
+                'https://shedtemp.pythonanywhere.com/temp',
+                json={"message": msg},
+                headers={"Content-type": "application/json"}
+            ).content
         except exceptions.ConnectionError:
             return "Failed API"
 
