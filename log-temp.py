@@ -26,7 +26,7 @@ class RequestsHandler(logging.Handler):
 
 
 log_formatter = logging.Formatter('%(asctime)s.%(msecs)03d,%(message)s', datefmt="%Y-%m-%d %H:%M:%S")
-log_handler = logging.handlers.TimedRotatingFileHandler("temp_logs/temp.log", when="d")
+log_handler = logging.handlers.TimedRotatingFileHandler("temp_logs/temp.log", when="midnight")
 log_handler.setFormatter(log_formatter)
 
 logger = logging.getLogger()
