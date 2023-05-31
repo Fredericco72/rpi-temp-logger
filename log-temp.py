@@ -21,7 +21,7 @@ class RequestsHandler(logging.Handler):
         print(msg)
         return post(
             'https://shedtemp.pythonanywhere.com/temp',
-            json={"message": message},
+            json={"message": msg},
             headers={"Content-type": "application/json"}
         ).content
 
@@ -32,7 +32,7 @@ log_handler.setFormatter(log_formatter)
 
 logger = logging.getLogger()
 logger.addHandler(log_handler)
-logger.addHandler(RequestsHandler)
+logger.addHandler(RequestsHandler())
 logger.setLevel(logging.INFO)
 logger.info("Hello")
 quit()
