@@ -18,7 +18,6 @@ from requests import post
 class RequestsHandler(logging.Handler):
     def emit(self, record):
         msg = self.format(record)
-        print(msg)
         return post(
             'https://shedtemp.pythonanywhere.com/temp',
             json={"message": msg},
