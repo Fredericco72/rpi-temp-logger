@@ -34,8 +34,6 @@ logger = logging.getLogger()
 logger.addHandler(log_handler)
 logger.addHandler(RequestsHandler())
 logger.setLevel(logging.INFO)
-logger.info("Hello")
-quit()
 
 
 # BME280 temperature/pressure/humidity sensor
