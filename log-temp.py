@@ -13,6 +13,18 @@ from PIL import ImageFont
 from fonts.ttf import RobotoMedium as UserFont
 import logging
 import logging.handlers
+from requests import post
+
+class RequestsHandler(logging.Handler):
+    def emit(self, record):
+        msg = self.format(record)
+        print(msg)
+        return post(
+            'https://shedtemp.pythonanywhere.com/temp',
+            json={"message": message},
+            headers={"Content-type": "application/json"}
+        ).content
+
 
 log_formatter = logging.Formatter('%(asctime)s.%(msecs)03d,%(message)s', datefmt="%Y-%m-%d %H:%M:%S")
 log_handler = logging.handlers.TimedRotatingFileHandler("temp_logs/temp.log", when="d")
@@ -20,7 +32,10 @@ log_handler.setFormatter(log_formatter)
 
 logger = logging.getLogger()
 logger.addHandler(log_handler)
+logger.addHandler(RequestsHandler)
 logger.setLevel(logging.INFO)
+logger.info("Hello")
+quit()
 
 
 # BME280 temperature/pressure/humidity sensor
