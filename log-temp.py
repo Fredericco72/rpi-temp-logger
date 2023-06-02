@@ -14,6 +14,8 @@ from fonts.ttf import RobotoMedium as UserFont
 import logging
 import logging.handlers
 from requests import exceptions, post
+from datetime import datetime
+
 
 class RequestsHandler(logging.Handler):
     def emit(self, record):
