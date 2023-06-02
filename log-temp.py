@@ -128,7 +128,7 @@ try:
         raw_temp = bme280.get_temperature()
         adj_temp = raw_temp - ((avg_cpu_temp - raw_temp) / factor)
         send_data({
-            "datetime": datetime.utcnow().timestamp()
+            "datetime": datetime.utcnow().timestamp(),
             "avg_cpu_temp": avg_cpu_temp,
             "raw_temp": raw_temp,
             "adj_temp": adj_temp,
