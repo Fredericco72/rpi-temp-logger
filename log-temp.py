@@ -27,6 +27,8 @@ class RequestsHandler(logging.Handler):
         except exceptions.ConnectionError:
             return "Failed API"
 
+def send_data(json):
+    post("https://shedtemp.pythonanywhere.com/api", json=json)
 
 log_formatter = logging.Formatter('%(asctime)s.%(msecs)03d,%(message)s', datefmt="%Y-%m-%d %H:%M:%S")
 log_handler = logging.handlers.TimedRotatingFileHandler("temp_logs/temp.log", when="midnight")
@@ -125,6 +127,12 @@ try:
         avg_cpu_temp = sum(cpu_temps) / float(len(cpu_temps))
         raw_temp = bme280.get_temperature()
         adj_temp = raw_temp - ((avg_cpu_temp - raw_temp) / factor)
+        send_data({
+            "datetime": datetime.utcnow().timestamp()
+            "avg_cpu_temp": avg_cpu_temp,
+            "raw_temp": raw_temp,
+            "adj_temp": adj_temp,
+        })
         logger.info("Avg CPU:{:.3f}, Raw Temp:{:.3f}, Adj Temp:{:.3f}".format(avg_cpu_temp,raw_temp,adj_temp))
         display_temp(adj_temp)
 
