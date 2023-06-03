@@ -30,7 +30,11 @@ class RequestsHandler(logging.Handler):
             return "Failed API"
 
 def send_data(json):
-    post("https://shedtemp.pythonanywhere.com/api", json=json)
+    try:
+        return post("https://shedtemp.pythonanywhere.com/api", json=json)
+    except exceptions.ConnectionError:
+        pass
+
 
 log_formatter = logging.Formatter('%(asctime)s.%(msecs)03d,%(message)s', datefmt="%Y-%m-%d %H:%M:%S")
 log_handler = logging.handlers.TimedRotatingFileHandler("temp_logs/temp.log", when="midnight")
