@@ -24,14 +24,15 @@ class RequestsHandler(logging.Handler):
             return post(
                 'https://shedtemp.pythonanywhere.com/temp',
                 json={"message": msg},
-                headers={"Content-type": "application/json"}
+                headers={"Content-type": "application/json"},
+                timeout=5,
             ).content
         except exceptions.ConnectionError:
             return "Failed API"
 
 def send_data(json):
     try:
-        return post("https://shedtemp.pythonanywhere.com/api", json=json)
+        return post("https://shedtemp.pythonanywhere.com/api", json=json, timeout=5)
     except exceptions.ConnectionError:
         pass
 
